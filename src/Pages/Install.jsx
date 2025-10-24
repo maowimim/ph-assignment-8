@@ -8,6 +8,11 @@ const Install = () => {
 
     const [sort, setSort] = useState("");
 
+    const handleForRemove = (id) => {
+        const latestApp = installed.filter(p => p.id !== id)
+        setInstalled(latestApp)
+    }
+
     const handleSorting = () => {
         if(sort === "size-asc"){
             return [...installed].sort((a, b) => a.size-b.size);
@@ -40,7 +45,7 @@ const Install = () => {
                     </div>
                     <div className='space-y-3'>
                         {
-                            handleSorting().map(app => <InstalledUi app={app}></InstalledUi>)
+                            handleSorting().map(app => <InstalledUi handleForRemove={handleForRemove} app={app}></InstalledUi>)
                         }
                     </div>
                 </div>

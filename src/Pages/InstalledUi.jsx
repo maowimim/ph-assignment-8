@@ -2,7 +2,7 @@ import React from 'react';
 import imgOfDnld from '../assets/icon-downloads.png'
 import imgOfRV from '../assets/icon-review.png'
 
-const InstalledUi = ({app}) => {
+const InstalledUi = ({app,handleForRemove}) => {
 
 
     return (
@@ -27,7 +27,7 @@ const InstalledUi = ({app}) => {
                 </div>
             </div>
             <div>
-                <button onClick={() => handleUninstall(app.id)}  className='py-3 px-4 bg-[#00D390] text-white font-semibold rounded-xl'>Uninstall</button>
+                <button onClick={() => handleForRemove(app.id)}  className='py-3 px-4 bg-[#00D390] text-white font-semibold rounded-xl'>Uninstall</button>
             </div>
         </div>
     );
