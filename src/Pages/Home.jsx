@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import AppCard from '../Components/AppCard'
 import useApps from '../Hooks/useApps'
+import Banner from '../Components/Banner/Banner'
 
 
 const Home = () => {
@@ -12,7 +13,7 @@ const Home = () => {
   //  console.log(app)
   return (
     <div>
-     
+     <Banner></Banner>
      <div className='text-center'>
           <h1 className='font-bold text-5xl'>Trending Apps</h1>
           <p className='text-[#627382] mt-4 mb-10'>Explore All Trending Apps on the Market developed by us</p>
