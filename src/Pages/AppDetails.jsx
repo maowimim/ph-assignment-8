@@ -1,37 +1,56 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router'
+import { Link, useParams } from 'react-router'
 import useApps from '../Hooks/useApps'
 import downloadImage from "../assets/icon-downloads.png"
 import iconrating from "../assets/icon-ratings.png"
 import iconreview from "../assets/icon-review.png"
+import errorAppImg from '../assets/App-Error.png'
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 const AppDetails = () => {
-  const [install, setInstall]= useState(false)
+  const [install, setInstall] = useState(false)
   const { id } = useParams()
   const { apps } = useApps()
 
   const app = apps.find(p => p.id === parseInt(id))
-
+  useEffect(() => {
+    if (!app) return;
+    const localApps = JSON.parse(localStorage.getItem("apps")) || []
+    const appInstalleds = localApps.some(p => p.id === app.id)
+    if (appInstalleds) setInstall(true)
+  }, [app])
   if (!app) {
-    return <p>Loading or app not found...</p>
+    return (<div>
+      <div className='flex justify-center items-center mt-20'>
+        <div className='text-center space-y-6 mb-10 md:mb-15'>
+          <div className='flex items-center justify-center'>
+            <img src={errorAppImg} alt="" />
+          </div>
+          <h1 className='font-bold text-4xl'>OPPS!! APP NOT FOUND</h1>
+          <p className='text-gray-400 text-xl'>The App you are requesting is not found on our system.  please try another apps</p>
+          <Link to='/' className='text-white rounded-sm font-semibold py-3 px-6 bg-gradient-to-r from-[#632EE3] to-[#9F62F2]'>
+            Back to Home
+          </Link>
+        </div>
+      </div>
+    </div>)
   }
-  
-const handleAddtoStorage=(app)=>{
-   
-  let installedApp = JSON.parse(localStorage.getItem("apps")) || []
-  let updatedApps = [];
-  if(installedApp){
-    const copyApp = installedApp.some(p=> p.id === app.id)
-    if(copyApp) return alert("This App Already installed")
-     updatedApps= [...installedApp,app]
+
+  const handleAddtoStorage = (app) => {
+
+    let installedApp = JSON.parse(localStorage.getItem("apps")) || []
+    let updatedApps = [];
+    if (installedApp) {
+      const copyApp = installedApp.some(p => p.id === app.id)
+      if (copyApp) return alert("This App Already installed")
+      updatedApps = [...installedApp, app]
+    }
+    else {
+      updatedApps.push(app)
+    }
+
+    localStorage.setItem("apps", JSON.stringify(updatedApps))
   }
-  else{
-    updatedApps.push(app)
-  }
- 
-  localStorage.setItem("apps",JSON.stringify(updatedApps))
-}
   return (
     <div className='max-w-[1440px] mx-auto mb-10 md:mb-20'>
       <div className='flex flex-col md:flex-row p-3 mt-10 md:mt-16 space-y-2'>
@@ -59,11 +78,11 @@ const handleAddtoStorage=(app)=>{
               <p>Total Reviews</p>
               <h1 className='font-extrabold text-4xl'>{app.reviews}</h1>
             </div>
-           
+
           </div>
-           <button onClick={()=>{
-            handleAddtoStorage(app),setInstall(true)
-           }} className='py-3 px-6 bg-[#00D390] text-white font-bold rounded-xl text-xl mt-8'> {install? 'Installed': `Install Now(${app.size}MB)`} </button>
+          <button onClick={() => {
+            handleAddtoStorage(app), setInstall(true)
+          }} className='py-3 px-6 bg-[#00D390] text-white font-bold rounded-xl text-xl mt-8'> {install ? 'Installed' : `Install Now(${app.size}MB)`} </button>
         </div>
       </div>
       <hr className='my-12' />
