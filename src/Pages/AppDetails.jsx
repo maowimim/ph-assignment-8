@@ -51,7 +51,7 @@ const AppDetails = () => {
     }
 
     localStorage.setItem("apps", JSON.stringify(updatedApps))
-    toast(`${app.title} already Installed`)
+    toast(`${app.title}  Installed !!`)
   }
   return (
     <div className='max-w-[1440px] mx-auto mb-10 md:mb-20'>
