@@ -10,6 +10,7 @@ const Install = () => {
 
     const handleForRemove = (id) => {
         const latestApp = installed.filter(p => p.id !== id)
+        localStorage.setItem("apps",JSON.stringify(latestApp))
         setInstalled(latestApp)
     }
 
@@ -45,7 +46,7 @@ const Install = () => {
                     </div>
                     <div className='space-y-3'>
                         {
-                            handleSorting().map(app => <InstalledUi handleForRemove={handleForRemove} app={app}></InstalledUi>)
+                            handleSorting().map(app => <InstalledUi key={app.id} handleForRemove={handleForRemove} app={app}></InstalledUi>)
                         }
                     </div>
                 </div>
