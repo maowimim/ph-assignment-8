@@ -7,26 +7,33 @@ import Banner from '../Components/Banner/Banner'
 
 const Home = () => {
   // const app = useLoaderData()
-  const { apps, loading, error } = useApps()
+  const { apps, loading } = useApps()
   // console.log(data)
   const featuredApp = apps.slice(0, 8)
   //  console.log(app)
   return (
     <div>
-     <Banner></Banner>
-     <div className='text-center'>
-          <h1 className='font-bold text-5xl'>Trending Apps</h1>
-          <p className='text-[#627382] mt-4 mb-10'>Explore All Trending Apps on the Market developed by us</p>
-        </div>
-
-
-      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4' >
-        {featuredApp.map(app => (
-          <AppCard key={app.id} app={app} />
-
-
-        ))}
+      <Banner></Banner>
+      <div className='text-center'>
+        <h1 className='font-bold text-5xl'>Trending Apps</h1>
+        <p className='text-[#627382] mt-4 mb-10'>Explore All Trending Apps on the Market developed by us</p>
       </div>
+
+
+      {
+        loading ?
+          <div className='flex justify-center items-center'>
+            <span className="loading loading-spinner loading-xl"></span>
+          </div>
+          :
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4' >
+            {featuredApp.map(app => (
+              <AppCard key={app.id} app={app} />
+
+
+            ))}
+          </div>
+      }
       <div className='flex justify-center mt-12 mb-16'><Link to='/Apps' className='  px-12 py-3 
         bg-purple-600 hover:bg-purple-700 
         text-white 
