@@ -7,7 +7,7 @@ const Apps = () => {
   const [search, setSearch] = useState('')
   const term = search.trim().toLocaleLowerCase()
   const searchedApps =  term ? apps.filter(app => app.title && app.title.toLocaleLowerCase().includes(term))
-  : apps
+  : apps;
   
 
 

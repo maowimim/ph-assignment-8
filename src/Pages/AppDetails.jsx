@@ -6,6 +6,7 @@ import iconrating from "../assets/icon-ratings.png"
 import iconreview from "../assets/icon-review.png"
 import errorAppImg from '../assets/App-Error.png'
 import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import { toast } from 'react-toastify'
 
 const AppDetails = () => {
   const [install, setInstall] = useState(false)
@@ -42,7 +43,7 @@ const AppDetails = () => {
     let updatedApps = [];
     if (installedApp) {
       const copyApp = installedApp.some(p => p.id === app.id)
-      if (copyApp) return alert("This App Already installed")
+      if (copyApp) return toast("This App Already installed")
       updatedApps = [...installedApp, app]
     }
     else {
@@ -50,6 +51,7 @@ const AppDetails = () => {
     }
 
     localStorage.setItem("apps", JSON.stringify(updatedApps))
+    toast(`${app.title} already Installed`)
   }
   return (
     <div className='max-w-[1440px] mx-auto mb-10 md:mb-20'>
